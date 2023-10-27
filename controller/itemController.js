@@ -2,8 +2,8 @@ const BaseController = require("./baseController");
 const axios = require("axios");
 
 class ItemController extends BaseController {
-  constructor() {
-    super();
+  constructor({pool, tblName}) {
+    super({pool, tblName});
   }
 
   test = (req, res) => {

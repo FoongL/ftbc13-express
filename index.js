@@ -1,8 +1,22 @@
+// importing required packages
 const express = require("express");
 const cors = require("cors");
+const pg = require("pg");
 
 // set up dotenv in the root file
-require('dotenv').config()
+require("dotenv").config();
+
+// set up DB Connection
+const { Pool } = pg;
+
+const pgConnectionConfigs = {
+  user: process.env.DB_USERNAME,
+  host: process.env.DB_HOST,
+  database: process.env.DB_DATABASE,
+  port: process.env.DB_PORT, // Postgres server always runs on this port
+};
+
+const pool = new Pool(pgConnectionConfigs);
 
 // importing Routers
 const UserRouter = require("./routers/userRouter");
@@ -13,8 +27,8 @@ const UserController = require("./controller/userController");
 const ItemController = require("./controller/itemController");
 
 // initializing controllers
-const userController = new UserController();
-const itemController = new ItemController();
+const userController = new UserController({ tblName: "users", pool });
+const itemController = new ItemController({ tblName: "items", pool });
 
 // initializing Routers
 const userRouter = new UserRouter(userController);
