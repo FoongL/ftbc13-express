@@ -2,8 +2,8 @@ const BaseController = require("./baseController");
 const axios = require("axios");
 
 class ItemController extends BaseController {
-  constructor() {
-    super();
+  constructor(model) {
+    super(model);
   }
 
   test = (req, res) => {
@@ -11,13 +11,31 @@ class ItemController extends BaseController {
   };
 
   pokemon = async (req, res) => {
-    console.log(req.params)
+    console.log(req.params);
     const { name } = req.params;
     const url = `https://pokeapi.co/api/v2/pokemon/${name}`;
     const pokeData = await axios.get(url);
     console.log("I GOT THE DATA!");
 
     return res.json({ data: pokeData.data });
+  };
+
+  createOne = async (req, res) => {
+    const { name, description, userId } = req.body;
+
+    try {
+      const newItem = await this.model.create({
+        name,
+        description,
+        userId,
+      });
+
+      console.log("new user", newItem);
+
+      return res.json({ success: true, item: newItem });
+    } catch (err) {
+      return res.status(400).json({ success: false, msg: err });
+    }
   };
 }
 

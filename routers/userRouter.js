@@ -8,7 +8,10 @@ class UserRouter {
 
   routes = () => {
     router.get("/firstRoute", this.controller.test);
-    router.get('/base', this.controller.baseMethod)
+    router.get('/base', this.controller.baseMethod);
+    router.get('/all', this.controller.getAll)
+    router.get('/:id', this.controller.getOne)
+    router.post('/newUser', this.controller.createOne)
     // router.get
     // router.post
     // router.put

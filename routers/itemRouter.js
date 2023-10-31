@@ -10,6 +10,7 @@ class ItemRouter {
     router.get("/firstRoute", this.controller.test);
     router.get('/base', this.controller.baseMethod)
     router.get('/emAll/:name', this.controller.pokemon)
+    router.post('/newItem', this.controller.createOne)
     // router.get
     // router.post
     // router.put

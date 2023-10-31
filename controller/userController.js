@@ -1,8 +1,8 @@
 const BaseController = require('./baseController')
 
 class UserController extends BaseController{
-    constructor(){
-        super()
+    constructor(model){
+        super(model)
     }
 
     test=(req,res)=>{

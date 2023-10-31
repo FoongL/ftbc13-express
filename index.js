@@ -12,9 +12,13 @@ const ItemRouter = require("./routers/itemRouter");
 const UserController = require("./controller/userController");
 const ItemController = require("./controller/itemController");
 
+// import db
+const db = require('./db/models')
+const { users, items } = db
+
 // initializing controllers
-const userController = new UserController();
-const itemController = new ItemController();
+const userController = new UserController(users);
+const itemController = new ItemController(items);
 
 // initializing Routers
 const userRouter = new UserRouter(userController);
