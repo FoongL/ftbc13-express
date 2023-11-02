@@ -47,6 +47,10 @@ class BaseController {
       return res.status(400).json({ success: false, msg: err });
     }
   };
+  infoPass = async (req, res) => {
+    console.log(req)
+    return res.json({ params: req.params, body: req.body, query: req.query });
+  };
 }
 
 module.exports = BaseController;

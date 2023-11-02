@@ -14,11 +14,11 @@ const ItemController = require("./controller/itemController");
 
 // import db
 const db = require('./db/models')
-const { users, items } = db
+const { user, item, category } = db
 
 // initializing controllers
-const userController = new UserController(users);
-const itemController = new ItemController(items);
+const userController = new UserController(user, item);
+const itemController = new ItemController(item, category);
 
 // initializing Routers
 const userRouter = new UserRouter(userController);

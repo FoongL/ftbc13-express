@@ -13,7 +13,7 @@ const db = {};
 // Develops the connection into the DB
 let sequelize;
 if (config.use_env_variable) {
-  sequelize = new Sequelize(process.env[config.use_env_variable], config);
+  sequelize = new Sequelize(process.env[config.use_env_variable], config); // this line is not used at all (but given by default)
 } else {
   // we are using this line in bigfoot SQL
   sequelize = new Sequelize(config.database, config.username, config.password, config);

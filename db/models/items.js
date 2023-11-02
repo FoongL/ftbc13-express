@@ -1,15 +1,17 @@
 const { Model } = require("sequelize");
 
 module.exports = (sequelize, DataTypes) => {
-  class Items extends Model {
+  class Item extends Model {
     // create our associations
 
-    static associations(models) {
+    static associate(models) {
       // create associations in here
+      Item.belongsTo(models.user);
+      Item.belongsToMany(models.category, { through: "items_categories" });
     }
   }
 
-  Items.init(
+  Item.init(
     {
       name: {
         type: DataTypes.STRING,
@@ -21,19 +23,19 @@ module.exports = (sequelize, DataTypes) => {
       userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        references:{
-            model:'users',
-            key:'id'
-          }
-      }
+        references: {
+          model: "user",
+          key: "id",
+        },
+      },
     },
     {
       sequelize,
-      modelName: "items",
+      modelName: "item",
       timestamps: true,
       underscored: true,
     }
   );
 
-  return Items
+  return Item;
 };
