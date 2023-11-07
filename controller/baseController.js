@@ -48,8 +48,13 @@ class BaseController {
     }
   };
   infoPass = async (req, res) => {
-    console.log(req)
+    console.log(req);
     return res.json({ params: req.params, body: req.body, query: req.query });
+  };
+
+  basicTest = async (req, res) => {
+    console.log('in my controller:',req.userId)
+    return res.json({ success: true, msg: "you got me" });
   };
 }
 

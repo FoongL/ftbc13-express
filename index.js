@@ -4,6 +4,8 @@ const cors = require("cors");
 // set up dotenv in the root file
 require('dotenv').config()
 
+
+
 // importing Routers
 const UserRouter = require("./routers/userRouter");
 const ItemRouter = require("./routers/itemRouter");
@@ -16,17 +18,21 @@ const ItemController = require("./controller/itemController");
 const db = require('./db/models')
 const { user, item, category } = db
 
+// importing middlewares
+const basicAuth = require('./middlewares/basicAuth')(user)
+
 // initializing controllers
 const userController = new UserController(user, item);
 const itemController = new ItemController(item, category);
 
 // initializing Routers
-const userRouter = new UserRouter(userController);
+const userRouter = new UserRouter(userController, basicAuth);
 const itemRouter = new ItemRouter(itemController);
+
 
 const app = express();
 const corsOptions = {
-  origin: "localhost:3000",
+  origin: "http://localhost:3000",
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 app.use(cors(corsOptions));
