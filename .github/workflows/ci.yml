@@ -1,5 +1,5 @@
 # This workflow will launch a clean Ubuntu OS, install app dependencies and run tests
-name: CI
+name: NPM Test
 
 # Run on push or PR to main branch
 on:
