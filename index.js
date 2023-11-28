@@ -20,13 +20,15 @@ const { user, item, category } = db
 
 // importing middlewares
 const basicAuth = require('./middlewares/basicAuth')(user)
+const jwtAuth = require('./middlewares/jwtAuth')
+const jwtCheck = require('./middlewares/auth0Auth')
 
 // initializing controllers
 const userController = new UserController(user, item);
 const itemController = new ItemController(item, category);
 
 // initializing Routers
-const userRouter = new UserRouter(userController, basicAuth);
+const userRouter = new UserRouter(userController, basicAuth, jwtAuth, jwtCheck);
 const itemRouter = new ItemRouter(itemController);
 
 
@@ -40,6 +42,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // using routers
+app.get('/test',(req,res)=> res.json({success:true, msg:"I am re-deployed!"}))
 app.use("/users", userRouter.routes());
 app.use("/items", itemRouter.routes());
 
@@ -47,3 +50,6 @@ const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log(`App is running on port ${PORT}`);
 });
+
+
+module.exports = app

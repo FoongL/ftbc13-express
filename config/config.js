@@ -8,7 +8,13 @@ const development = {
   "dialect": process.env.DB_DIALECT
 }
 
-const production = {}
+const production = {
+  "username": process.env.USERNAME,
+  "password": process.env.PASSWORD,
+  "database": process.env.DATABASE,
+  "host": process.env.HOST,
+  "dialect": process.env.DIALECT
+}
 
 
 

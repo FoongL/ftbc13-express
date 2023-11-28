@@ -2,9 +2,11 @@ const express = require("express");
 const router = express.Router();
 
 class UserRouter {
-  constructor(userController, basicAuth) {
+  constructor(userController, basicAuth, jwtAuth, jwtCheck) {
     this.controller = userController;
     this.basicAuth = basicAuth
+    this.jwtAuth = jwtAuth
+    this.jwtCheck = jwtCheck
   }
 
   routes = () => {
@@ -18,11 +20,15 @@ class UserRouter {
     router.put('/test/:var', this.controller.infoPass)
     router.post('/basicSignUp', this.controller.basicSignUp)
     router.post('/basicSignIn', this.controller.basicSignIn)
+    router.post('/jwtSignUp', this.controller.jwtSignUp)
+    router.post('/jwtSignIn', this.controller.jwtSignIn)
     // protecting any route BELOW
     // router.use(this.basicAuth)
 
 
     router.get('/basicTest', this.basicAuth, this.controller.basicTest)
+    router.get('/jwtTest', this.jwtAuth, this.controller.basicTest)
+    router.get('/auth0Test', this.jwtCheck, this.controller.basicTest)
 
 
 
